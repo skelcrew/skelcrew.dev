@@ -131,7 +131,8 @@
 
   a { color: var(--fg); text-decoration: none; }
   a:hover { text-decoration: underline; }
-
+  .done { margin-top: 2rem; color: var(--fg); }
+  button:disabled { opacity: .6; cursor: default; }
 </style>
 </head>
 <body>
@@ -150,7 +151,7 @@
       <p>Skelcrew runs coding agents through phased tasks with review gates. You keep the big picture and make the calls that matter. The agents do the rest, and what they decide is kept on record.</p>
       <p class="quiet">Open source and early. Leave your email and I will write when there is something to try.</p>
 
-      <form action="https://buttondown.com/api/emails/embed-subscribe/skelcrew" method="post" target="popupwindow"
+      <form id="signup" action="https://buttondown.com/api/emails/embed-subscribe/skelcrew" method="post">
             onsubmit="window.open('https://buttondown.com/skelcrew', 'popupwindow')">
         <label for="email">get updates</label>
         <div class="row">
@@ -159,6 +160,7 @@
         </div>
         <p class="hint">A few emails a year at most. Unsubscribe any time.</p>
       </form>
+      <p id="signup-done" class="done" role="status" hidden></p>
     </section>
 
   </main>
@@ -166,6 +168,26 @@
   <footer class="bar foot">
     <span>made by <a href="https://www.linkedin.com/in/simoncarstensen/" rel="me">simon carstensen</a> in denmark</span>
   </footer>
+
+  <script>
+  const form = document.getElementById('signup');
+  const done = document.getElementById('signup-done');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const button = form.querySelector('button');
+    const email = form.email.value;
+    button.disabled = true;
+    button.textContent = 'subscribing...';
+    try {
+      await fetch(form.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(new FormData(form)) });
+      done.textContent = 'Almost there. Check ' + email + ' for a link to confirm your subscription.';
+      form.hidden = true;
+      done.hidden = false;
+    } catch {
+      form.submit();
+    }
+  });
+  </script>
 
 </body>
 </html>

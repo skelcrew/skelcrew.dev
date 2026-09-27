@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You're on the list · Skelcrew</title>
+<meta name="description" content="Subscription confirmed.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f4f4f1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦴</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Black on off white */
+  :root {
+    --bg: #f4f4f1;
+    --bg-dark: #f4f4f1;
+    --fg: #161616;
+    --fg-dim: #3a3a3a;
+    --comment: #6b6b6b;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-dark);
+    color: var(--fg);
+    font-family: "JetBrains Mono", "CaskaydiaMono Nerd Font", "Cascadia Mono", ui-monospace, Menlo, monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Waybar-style top bar */
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 4px 14px;
+    font-size: 13px;
+    color: var(--fg-dim);
+    background: var(--bg-dark);
+  }
+  .foot { justify-content: center; text-align: center; padding: 1rem 14px 1.25rem; }
+  .foot a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Centered content */
+  .desktop {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    padding: clamp(1.25rem, 5vw, 3rem);
+  }
+  .win {
+    width: 100%;
+    max-width: 36rem;
+    min-width: 0;
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 7vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -.03em;
+    margin: 0 0 1.25rem;
+    color: var(--fg);
+  }
+  .win { container-type: inline-size; }
+  h1.logo { margin: 0 0 1.75rem; font-size: inherit; letter-spacing: 0; }
+  h1.logo pre {
+    margin: 0;
+    font-family: inherit;
+    font-weight: 400;
+    /* 78 columns wide: scale to fit the window, cap at a comfortable size */
+    font-size: calc(100cqi / 47);
+    line-height: 1;
+    color: var(--fg);
+    overflow-x: auto;
+  }
+  h1.logo .sh { color: #b5b5b5; }
+  .sr {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .lede {
+    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+    line-height: 1.4;
+    color: var(--fg);
+    margin: 0 0 1.5rem;
+    max-width: 30ch;
+  }
+  p { margin: 0 0 1rem; color: var(--fg-dim); }
+  .quiet { color: var(--comment); }
+
+  form { margin-top: 2rem; }
+  label { display: block; color: var(--fg); margin-bottom: .5rem; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  input[type="email"] {
+    flex: 1 1 14rem;
+    font: inherit;
+    padding: .65rem .8rem;
+    background: var(--bg-dark);
+    color: var(--fg);
+    border: 2px solid var(--comment);
+    border-radius: 0;
+    caret-color: var(--fg);
+  }
+  input::placeholder { color: var(--comment); }
+  button {
+    font: inherit;
+    font-weight: 700;
+    padding: .65rem 1.1rem;
+    border: 2px solid var(--fg);
+    border-radius: 0;
+    background: var(--fg);
+    color: var(--bg-dark);
+    cursor: pointer;
+  }
+  button:hover { background: var(--bg); color: var(--fg); }
+  input:focus-visible { outline: none; border-color: var(--fg); }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+  .hint { font-size: 13px; color: var(--comment); margin-top: .6rem; }
+  .back { margin-top: 2rem; }
+  .back a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+  button:disabled { opacity: .6; cursor: default; }
+
+  a { color: var(--fg); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+</style>
+</head>
+<body>
+
+  <main class="desktop">
+    <section class="win active" id="w-main">
+      <h1 class="logo"><span class="sr">skelcrew</span><pre aria-hidden="true">           <span class="sh">/</span>██                 <span class="sh">/</span>██
+          <span class="sh">|</span> ██                <span class="sh">|</span> ██
+  <span class="sh">/</span>███████<span class="sh">|</span> ██   <span class="sh">/</span>██  <span class="sh">/</span>██████ <span class="sh">|</span> ██  <span class="sh">/</span>███████  <span class="sh">/</span>██████   <span class="sh">/</span>██████  <span class="sh">/</span>██  <span class="sh">/</span>██  <span class="sh">/</span>██
+ <span class="sh">/</span>██<span class="sh">_____/|</span> ██  <span class="sh">/</span>██<span class="sh">/</span> <span class="sh">/</span>██<span class="sh">__</span>  ██<span class="sh">|</span> ██ <span class="sh">/</span>██<span class="sh">_____/</span> <span class="sh">/</span>██<span class="sh">__</span>  ██ <span class="sh">/</span>██<span class="sh">__</span>  ██<span class="sh">|</span> ██ <span class="sh">|</span> ██ <span class="sh">|</span> ██
+<span class="sh">|</span>  ██████ <span class="sh">|</span> ██████<span class="sh">/</span> <span class="sh">|</span> ████████<span class="sh">|</span> ██<span class="sh">|</span> ██      <span class="sh">|</span> ██  <span class="sh">\__/|</span> ████████<span class="sh">|</span> ██ <span class="sh">|</span> ██ <span class="sh">|</span> ██
+ <span class="sh">\____</span>  ██<span class="sh">|</span> ██<span class="sh">_</span>  ██ <span class="sh">|</span> ██<span class="sh">_____/|</span> ██<span class="sh">|</span> ██      <span class="sh">|</span> ██      <span class="sh">|</span> ██<span class="sh">_____/|</span> ██ <span class="sh">|</span> ██ <span class="sh">|</span> ██
+ <span class="sh">/</span>███████<span class="sh">/|</span> ██ <span class="sh">\</span>  ██<span class="sh">|</span>  ███████<span class="sh">|</span> ██<span class="sh">|</span>  ███████<span class="sh">|</span> ██      <span class="sh">|</span>  ███████<span class="sh">|</span>  █████<span class="sh">/</span>████<span class="sh">/</span>
+<span class="sh">|_______/</span> <span class="sh">|__/</span>  <span class="sh">\__/</span> <span class="sh">\_______/|__/</span> <span class="sh">\_______/|__/</span>       <span class="sh">\_______/</span> <span class="sh">\_____/\___/</span></pre></h1>
+      <p class="lede">You're on the list.</p>
+      <p>Thanks for confirming. I will write when there is something worth trying, a few emails a year at most.</p>
+      <p class="back"><a href="/">Back to skelcrew.dev</a></p>
+    </section>
+
+  </main>
+
+  <footer class="bar foot">
+    <!-- Replace the href with your LinkedIn profile URL -->
+    <span>made by <a href="https://www.linkedin.com/in/YOUR-PROFILE/" rel="me">simon carstensen</a> in denmark</span>
+  </footer>
+
+</body>
+</html>

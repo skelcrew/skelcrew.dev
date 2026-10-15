@@ -1,192 +1,352 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Skelcrew</title>
-<meta name="description" content="A small crew of coding agents, with you as the team lead. Open source, early days.">
-<meta name="theme-color" content="#f4f4f1">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦴</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
-<style>
-  /* Black on off white */
-  :root {
-    --bg: #f4f4f1;
-    --bg-dark: #f4f4f1;
-    --fg: #161616;
-    --fg-dim: #3a3a3a;
-    --comment: #6b6b6b;
-    color-scheme: light;
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  *, *::before, *::after { box-sizing: inherit; }
-  html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
-  body {
-    margin: 0;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    background: var(--bg-dark);
-    color: var(--fg);
-    font-family: "JetBrains Mono", "CaskaydiaMono Nerd Font", "Cascadia Mono", ui-monospace, Menlo, monospace;
-    font-size: 15px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* Waybar-style top bar */
-  .bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 4px 14px;
-    font-size: 13px;
-    color: var(--fg-dim);
-    background: var(--bg-dark);
-  }
-  .foot { justify-content: center; text-align: center; padding: 1rem 14px 1.25rem; }
-  .foot a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
-
-  /* Centered content */
-  .desktop {
-    flex: 1;
-    display: grid;
-    place-items: center;
-    padding: clamp(1.25rem, 5vw, 3rem);
-  }
-  .win {
-    width: 100%;
-    max-width: 36rem;
-    min-width: 0;
-  }
-
-  h1 {
-    font-size: clamp(2.6rem, 7vw, 4.5rem);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -.03em;
-    margin: 0 0 1.25rem;
-    color: var(--fg);
-  }
-  .win { container-type: inline-size; }
-  h1.logo { margin: 0 0 1.75rem; font-size: inherit; letter-spacing: 0; }
-  h1.logo pre {
-    margin: 0;
-    font-family: inherit;
-    font-weight: 400;
-    /* 78 columns wide: scale to fit the window, cap at a comfortable size */
-    font-size: calc(100cqi / 47);
-    line-height: 1;
-    color: var(--fg);
-    overflow-x: auto;
-  }
-  h1.logo .sh { color: #b5b5b5; }
-  .sr {
-    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-  }
-  .lede {
-    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
-    line-height: 1.4;
-    color: var(--fg);
-    margin: 0 0 1.5rem;
-    max-width: 30ch;
-  }
-  p { margin: 0 0 1rem; color: var(--fg-dim); }
-  .quiet { color: var(--comment); }
-
-  form { margin-top: 2rem; }
-  label { display: block; color: var(--fg); margin-bottom: .5rem; }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; }
-  input[type="email"] {
-    flex: 1 1 14rem;
-    font: inherit;
-    padding: .65rem .8rem;
-    background: var(--bg-dark);
-    color: var(--fg);
-    border: 2px solid var(--comment);
-    border-radius: 0;
-    caret-color: var(--fg);
-  }
-  input::placeholder { color: var(--comment); }
-  button {
-    font: inherit;
-    font-weight: 700;
-    padding: .65rem 1.1rem;
-    border: 2px solid var(--fg);
-    border-radius: 0;
-    background: var(--fg);
-    color: var(--bg-dark);
-    cursor: pointer;
-  }
-  button:hover { background: var(--bg); color: var(--fg); }
-  input:focus-visible { outline: none; border-color: var(--fg); }
-  button:focus-visible, a:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
-  .hint { font-size: 13px; color: var(--comment); margin-top: .6rem; }
-
-  a { color: var(--fg); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .done { margin-top: 2rem; color: var(--fg); }
-  button:disabled { opacity: .6; cursor: default; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skelcrew · a small crew of coding agents, with you as the team lead</title>
+  <meta name="description" content="Skelcrew runs coding agents through phased tasks with review gates. You make the calls that matter. The agents do the rest, and everything they decide is kept on record.">
+  <meta property="og:title" content="Skelcrew">
+  <meta property="og:description" content="A small crew of coding agents, with you as the team lead. Open source.">
+  <meta property="og:url" content="https://skelcrew.dev">
+  <meta name="theme-color" content="#f3f2ee">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦴</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <main class="desktop">
-    <section class="win active" id="w-main">
-      <h1 class="logo"><span class="sr">skelcrew</span><pre aria-hidden="true">           <span class="sh">/</span>██                 <span class="sh">/</span>██
-          <span class="sh">|</span> ██                <span class="sh">|</span> ██
-  <span class="sh">/</span>███████<span class="sh">|</span> ██   <span class="sh">/</span>██  <span class="sh">/</span>██████ <span class="sh">|</span> ██  <span class="sh">/</span>███████  <span class="sh">/</span>██████   <span class="sh">/</span>██████  <span class="sh">/</span>██  <span class="sh">/</span>██  <span class="sh">/</span>██
- <span class="sh">/</span>██<span class="sh">_____/|</span> ██  <span class="sh">/</span>██<span class="sh">/</span> <span class="sh">/</span>██<span class="sh">__</span>  ██<span class="sh">|</span> ██ <span class="sh">/</span>██<span class="sh">_____/</span> <span class="sh">/</span>██<span class="sh">__</span>  ██ <span class="sh">/</span>██<span class="sh">__</span>  ██<span class="sh">|</span> ██ <span class="sh">|</span> ██ <span class="sh">|</span> ██
-<span class="sh">|</span>  ██████ <span class="sh">|</span> ██████<span class="sh">/</span> <span class="sh">|</span> ████████<span class="sh">|</span> ██<span class="sh">|</span> ██      <span class="sh">|</span> ██  <span class="sh">\__/|</span> ████████<span class="sh">|</span> ██ <span class="sh">|</span> ██ <span class="sh">|</span> ██
- <span class="sh">\____</span>  ██<span class="sh">|</span> ██<span class="sh">_</span>  ██ <span class="sh">|</span> ██<span class="sh">_____/|</span> ██<span class="sh">|</span> ██      <span class="sh">|</span> ██      <span class="sh">|</span> ██<span class="sh">_____/|</span> ██ <span class="sh">|</span> ██ <span class="sh">|</span> ██
- <span class="sh">/</span>███████<span class="sh">/|</span> ██ <span class="sh">\</span>  ██<span class="sh">|</span>  ███████<span class="sh">|</span> ██<span class="sh">|</span>  ███████<span class="sh">|</span> ██      <span class="sh">|</span>  ███████<span class="sh">|</span>  █████<span class="sh">/</span>████<span class="sh">/</span>
-<span class="sh">|_______/</span> <span class="sh">|__/</span>  <span class="sh">\__/</span> <span class="sh">\_______/|__/</span> <span class="sh">\_______/|__/</span>       <span class="sh">\_______/</span> <span class="sh">\_____/\___/</span></pre></h1>
-      <p class="lede">A small crew of coding agents, with you as the team lead.</p>
-      <p>Skelcrew runs coding agents through phased tasks with review gates. You keep the big picture and make the calls that matter. The agents do the rest, and what they decide is kept on record.</p>
-      <p class="quiet">Open source and early. Leave your email and I will write when there is something to try.</p>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Skelcrew home">skelcrew</a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#trust">Guarantees</a>
+      <a href="#status">Status</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="gh" href="https://github.com/skelcrew/skelcrew" aria-label="Skelcrew on GitHub">
+        <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>GitHub</span>
+      </a>
+      <a class="btn btn-solid btn-sm" href="#updates">Get updates</a>
+    </div>
+  </div>
+</header>
 
-      <form id="signup" action="https://buttondown.com/api/emails/embed-subscribe/skelcrew" method="post">
-        <label for="email">get updates</label>
-        <div class="row">
-          <input type="email" name="email" id="email" placeholder="you@example.com" autocomplete="email" required>
-          <button type="submit">subscribe</button>
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero wrap">
+    <p class="eyebrow"><span class="dot"></span> Open source · early · built in public</p>
+    <h1>A small crew of coding agents,<br>with you as the team lead.</h1>
+    <p class="lede">
+      Skelcrew turns tasks into finished work. Agents plan, build and review in parallel,
+      unattended. You make the calls that matter, and everything they decide is kept on record.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="#updates">Get early access</a>
+      <a class="btn btn-ghost" href="https://github.com/skelcrew/skelcrew">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+    <p class="fineprint">Works with Claude Code and Codex · git · GitHub · your tracker</p>
+  </section>
+
+  <!-- Product demo -->
+  <section class="demo wrap" aria-label="Product preview">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-tab="crew">Run a crew</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="inbox">Decision inbox</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="review">Review gates</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="record">On the record</button>
+    </div>
+
+    <div class="window">
+      <div class="window-bar">
+        <span class="lights"><i></i><i></i><i></i></span>
+        <span class="window-title">skel · ~/work/acme-web</span>
+        <span class="window-meta">2 running · 1 waiting on you</span>
+      </div>
+
+      <div class="panel is-active" data-panel="crew">
+        <pre><span class="c-dim">$</span> skel add <span class="c-str">"EU customers can't save a VAT number at checkout"</span>
+<span class="c-ok">✓</span> task <b>T-41</b> added
+
+<span class="c-dim">$</span> skel ls
+<span class="c-dim">TASK   INTENT        PHASE        ROLE      AGE    STATUS</span>
+T-41   bug · ship    build        builder   4m     <span class="c-run">● running</span>
+T-39   feature       review r2    tester    18m    <span class="c-run">● running</span>
+T-38   investigate   triage       planner   22m    <span class="c-wait">? needs you</span>
+T-36   bug · ship    delivered    –         1h     <span class="c-ok">✓ PR #212</span>
+T-35   prototype     delivered    –         3h     <span class="c-ok">✓ branch</span>
+
+<span class="c-dim">limits: max_running 2 · critical: src/core/** needs your sign-off</span></pre>
+      </div>
+
+      <div class="panel" data-panel="inbox">
+        <div class="inbox">
+          <div class="inbox-head"><span class="c-wait">?</span> <b>T-38</b> planner asks <span class="c-dim">· 22m ago</span></div>
+          <p>The flaky checkout test fails on CI only. I found two causes. Which should I take on?</p>
+          <ol class="choices">
+            <li><kbd>1</kbd> Fix the timezone assumption in <code>validators.ts</code> and ship it</li>
+            <li><kbd>2</kbd> Write a report on both causes and stop there</li>
+            <li><kbd>3</kbd> Split into two tasks</li>
+          </ol>
+          <p class="c-dim">Press a number to answer, <kbd>a</kbd> to attach to the session, <kbd>p</kbd> to pause.</p>
         </div>
-        <p class="hint">A few emails a year at most. Unsubscribe any time.</p>
-      </form>
-      <p id="signup-done" class="done" role="status" hidden></p>
-    </section>
+      </div>
 
-  </main>
+      <div class="panel" data-panel="review">
+        <pre><span class="c-dim">T-39 · add saved addresses to checkout</span>
 
-  <footer class="bar foot">
-    <span>made by <a href="https://www.linkedin.com/in/simoncarstensen/" rel="me">simon carstensen</a> in denmark</span>
-  </footer>
+<b>round 1</b>   builder   12 commits · bun run check <span class="c-ok">passing</span>
+          tester    <span class="c-bad">changes requested</span>
+                    · AddressForm drops the postcode on edit
+                    · no test covers the empty-list state
+<b>round 2</b>   builder   3 commits · bun run check <span class="c-ok">passing</span>
+          tester    <span class="c-run">reviewing…</span>
 
-  <script>
-  const form = document.getElementById('signup');
-  const done = document.getElementById('signup-done');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const button = form.querySelector('button');
-    const email = form.email.value;
-    button.disabled = true;
-    button.textContent = 'subscribing...';
-    try {
-      await fetch(form.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(new FormData(form)) });
-      done.textContent = 'Almost there. Check ' + email + ' for a link to confirm your subscription.';
-      form.hidden = true;
-      done.hidden = false;
-    } catch {
-      form.submit();
-    }
-  });
-  </script>
+<b>gate</b>      touches src/core/**  →  <span class="c-wait">waits for your sign-off</span>
+<span class="c-dim">The builder can't approve its own work. The tester can't merge.
+Only the reviewed commit is delivered.</span></pre>
+      </div>
 
+      <div class="panel" data-panel="record">
+        <pre><span class="c-dim">$</span> skel log T-36
+<span class="c-dim">09:02:11</span>  task.added            by you
+<span class="c-dim">09:02:14</span>  triage.decided        intent=bug rigor=ship   <span class="c-dim">planner</span>
+<span class="c-dim">09:02:15</span>  workspace.created     worktree t-36
+<span class="c-dim">09:14:40</span>  build.finished        5 commits               <span class="c-dim">builder</span>
+<span class="c-dim">09:21:03</span>  review.passed         evidence: 3 checks      <span class="c-dim">tester</span>
+<span class="c-dim">09:21:04</span>  gate.approved         by you
+<span class="c-dim">09:21:09</span>  delivered             PR #212  sha 4be1c9e
+
+<span class="c-dim">append-only · replayable · survives crashes and restarts</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section wrap narrow">
+    <p class="kicker">The problem</p>
+    <h2>Agents got good. Supervising them didn't get easier.</h2>
+    <p>
+      Coding agents can do real work now, but each one still needs a person in a chat window,
+      approving steps and reading every line. Run three at once and your day becomes switching
+      between them.
+    </p>
+    <p>
+      That doesn't scale, and it wears people out. Developers get faster, but not better off.
+      The bottleneck has moved from writing code to deciding what to build, checking the
+      result, and keeping track of it all.
+    </p>
+  </section>
+
+  <!-- How it works -->
+  <section class="section wrap" id="how">
+    <div class="section-head">
+      <p class="kicker">How it works</p>
+      <h2>The task is the unit of work, not the chat.</h2>
+      <p>You add a task. A small crew with clear roles takes it from there.</p>
+    </div>
+
+    <ol class="flow">
+      <li>
+        <span class="step">01</span>
+        <h3>You add a task</h3>
+        <p>From the command line, or pulled from your tracker. One sentence is enough.</p>
+      </li>
+      <li>
+        <span class="step">02</span>
+        <h3>Planner triages</h3>
+        <p>Decides how much care it needs, and whether it should ship, stay a prototype, or just answer a question.</p>
+      </li>
+      <li>
+        <span class="step">03</span>
+        <h3>Builder builds</h3>
+        <p>Works in its own isolated workspace, with your project's rules and tests.</p>
+      </li>
+      <li>
+        <span class="step">04</span>
+        <h3>Tester reviews</h3>
+        <p>A separate agent reviews adversarially and collects evidence. Up to three rounds.</p>
+      </li>
+      <li>
+        <span class="step">05</span>
+        <h3>You get the result</h3>
+        <p>A branch, a pull request or a report. Critical changes wait for your sign-off.</p>
+      </li>
+    </ol>
+
+    <div class="grid3">
+      <div class="card">
+        <h3>Parallel and unattended</h3>
+        <p>Agents keep working while you're away. Set how many run at once, and let them go.</p>
+      </div>
+      <div class="card">
+        <h3>Decisions, not supervision</h3>
+        <p>When an agent needs you, it asks a short question with options. You can still step into any session and talk to it.</p>
+      </div>
+      <div class="card">
+        <h3>Plumbing, not another AI tool</h3>
+        <p>No IDE, no lock-in. Skelcrew runs the agents you already use and hands their work to git, GitHub and your tracker.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="section band" id="trust">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="kicker">Why you can leave it running</p>
+        <h2>Guarantees in code. Judgment in agents.</h2>
+        <p>
+          Agents propose. A small, deterministic core decides what's allowed, by fixed rules.
+          An agent never holds the power to break them.
+        </p>
+      </div>
+
+      <div class="grid2">
+        <div class="rule">
+          <span class="rule-mark">01</span>
+          <div>
+            <h3>No agent approves its own work</h3>
+            <p>Building and reviewing are separate roles. Nothing ships without review, and no agent can start more agents than you allow.</p>
+          </div>
+        </div>
+        <div class="rule">
+          <span class="rule-mark">02</span>
+          <div>
+            <h3>Nothing ships unchecked</h3>
+            <p>The work that passed review is exactly the work that gets delivered. Changes to critical code wait for you.</p>
+          </div>
+        </div>
+        <div class="rule">
+          <span class="rule-mark">03</span>
+          <div>
+            <h3>Everything is on the record</h3>
+            <p>Every step is an event in an append-only log. See exactly what happened and why, and replay it.</p>
+          </div>
+        </div>
+        <div class="rule">
+          <span class="rule-mark">04</span>
+          <div>
+            <h3>Nothing is lost</h3>
+            <p>Work is saved before an agent is stopped. A crash or restart picks up where it left off.</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="config">
+        <figcaption>skelcrew.yaml · the whole setup</figcaption>
+<pre><span class="c-key">roles</span>:
+  <span class="c-key">planner</span>:  { <span class="c-key">harness</span>: claude }
+  <span class="c-key">builder</span>:  { <span class="c-key">harness</span>: claude }
+  <span class="c-key">tester</span>:   { <span class="c-key">harness</span>: codex }
+
+<span class="c-key">repo</span>:
+  <span class="c-key">test</span>: [bun run check]
+  <span class="c-key">critical</span>: [src/core/**]   <span class="c-dim"># needs your sign-off</span>
+
+<span class="c-key">limits</span>:
+  <span class="c-key">max_running</span>: 2</pre>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="section wrap narrow">
+    <p class="kicker">Built to stay small</p>
+    <h2>If the next model is twice as good, does this become dead code?</h2>
+    <p>
+      That's the test for every feature. If the answer is yes, it isn't built. Skelcrew doesn't
+      try to make agents smarter. It runs vanilla agents and stays out of their way, so it gets
+      better with every model instead of being tied to one vendor.
+    </p>
+  </section>
+
+  <!-- Status -->
+  <section class="section wrap" id="status">
+    <div class="section-head">
+      <p class="kicker">Status</p>
+      <h2>Skelcrew is built by Skelcrew.</h2>
+      <p>
+        An earlier version ran real agents end to end, from task to pull request. On 8 October 2026
+        a simpler rebuild started, built the way Skelcrew works: agents build it, and the decisions
+        are approved by a human.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div><b>550+</b><span>automated tests on the core, including property tests</span></div>
+      <div><b>2×</b><span>fewer bugs with project rules and a spec, code, review loop, in a blind comparison</span></div>
+      <div><b>100%</b><span>open source core, free to run on your own machine</span></div>
+    </div>
+
+    <ol class="roadmap">
+      <li class="done"><span>Done</span>The core that decides what agents may do, and the store and loop that survive a crash</li>
+      <li class="now"><span>Now</span>First real task end to end: <code>skel add</code> to a branch, with real agents</li>
+      <li><span>Next</span>A terminal UI for what's running and what waits on you</li>
+      <li><span>Next</span>Codex as a second harness, to prove Skelcrew isn't tied to one vendor</li>
+      <li><span>Then</span>Skelcrew building itself, every day</li>
+      <li><span>Later</span>Hosted skelcrew.dev: steer your crew from anywhere, with approvals in the browser</li>
+    </ol>
+  </section>
+
+  <!-- About -->
+  <section class="section band" id="about">
+    <div class="wrap about">
+      <div class="about-text">
+        <p class="kicker">Who's building it</p>
+        <h2>Simon Carstensen</h2>
+        <p>
+          Senior full-stack developer with two decades of JavaScript and Python, based in Denmark.
+          Y Combinator S05, where I co-founded Infogami with Aaron Swartz, and later co-created
+          the original Jottit with him.
+        </p>
+        <p>
+          These days I focus on putting AI into the development process: agentic coding tools,
+          MCP servers, and shaping stacks for agents to work in. I'm building Skelcrew in public.
+        </p>
+        <p class="links">
+          <a href="https://simonbc.com">simonbc.com</a>
+          <a href="https://github.com/simonbc">GitHub</a>
+          <a href="https://www.linkedin.com/in/simoncarstensen/" rel="me">LinkedIn</a>
+        </p>
+      </div>
+      <div class="about-side">
+        <div class="badge"><span class="yc">Y</span> Combinator S05</div>
+        <p class="c-dim">Interested in backing Skelcrew? <a href="mailto:hello@skelcrew.dev?subject=Skelcrew">Get in touch</a> and I'll send you the memo and a short demo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signup -->
+  <section class="section wrap narrow signup" id="updates">
+    <h2>Be first to run a crew.</h2>
+    <p>Open source and early. Leave your email and I'll write when there's something to try.</p>
+    <form class="form" action="https://buttondown.com/api/emails/embed-subscribe/skelcrew" method="post">
+      <label class="sr-only" for="email">Email</label>
+      <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+      <button class="btn btn-solid" type="submit">Subscribe</button>
+    </form>
+    <p class="fineprint form-note">A few emails a year at most. Unsubscribe any time.</p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand brand-sm" href="#top">skelcrew</a>
+    <p>made by <a href="https://simonbc.com">simon carstensen</a> in denmark</p>
+    <p><a href="https://github.com/skelcrew/skelcrew">github</a> · <a href="mailto:hello@skelcrew.dev">contact</a></p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
 </body>
 </html>

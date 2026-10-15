@@ -52,7 +52,9 @@ function SystemDiagram() {
       <Box label="Work comes in">
         <p className="flex flex-wrap gap-x-8 gap-y-1 text-lg">
           <code className="font-mono text-base leading-7">skel add</code>
-          <span>GitHub issues</span>
+          <span>
+            GitHub issues <span className="text-faint">soon</span>
+          </span>
           <span>
             Your tracker <span className="text-faint">soon</span>
           </span>
@@ -98,8 +100,8 @@ function SystemDiagram() {
 const glance = [
   ["For", "Developers and small teams.", "Who already use coding agents."],
   ["Runs", "In your terminal.", "On your laptop or an always-on machine."],
-  ["Works with", "Claude Code, git and GitHub.", "Codex next. Everything else through plugins."],
-  ["Price", "Free, open source core.", "Bring your own AI subscription."],
+  ["Works with", "Claude Code and git.", "GitHub and Codex next. Everything else through plugins."],
+  ["Price", "Free, open source core.", "At first release. Bring your own AI subscription."],
 ];
 
 export function AtAGlance() {
@@ -254,7 +256,7 @@ const config = [
   "{key:roles}:",
   "  {key:planner}: { {key:harness}: claude }",
   "  {key:builder}: { {key:harness}: claude }",
-  "  {key:tester}:  { {key:harness}: codex }",
+  "  {key:tester}:  { {key:harness}: claude }",
   "",
   "{key:repo}:",
   "  {key:test}: [bun run check]",
@@ -376,7 +378,7 @@ const faq = [
   ],
   [
     "Do I need a new account or AI subscription?",
-    "No. You bring your own Claude or Codex subscription, and the open source core runs free on your own machine. Skelcrew never resells model usage.",
+    "No. You bring your own AI subscription, and the core, open source from the first release, runs free on your own machine. Skelcrew never resells model usage.",
   ],
   [
     "Will there be a hosted version?",

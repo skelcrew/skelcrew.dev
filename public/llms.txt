@@ -1,6 +1,6 @@
 # Skelcrew
 
-> Skelcrew is open source software that runs a small crew of coding agents on tasks, in parallel and unattended, with a human as the team lead. Tasks go in; branches, pull requests or reports come out.
+> Skelcrew is software that runs a small crew of coding agents on tasks, in parallel and unattended, with a human as the team lead. Tasks go in; branches, pull requests or reports come out.
 
 Status: in active development. The rebuild started on 8 October 2026 and has not had a public release yet. Updates: https://skelcrew.dev/#updates
 
@@ -24,8 +24,8 @@ Status: in active development. The rebuild started on 8 October 2026 and has not
 ## Compatibility
 
 - Harnesses: Claude Code today; Codex next. Others through plugins.
-- Runs in the terminal on a laptop or an always-on machine. Uses git and GitHub.
-- Bring your own AI subscription. The core is free and open source. A hosted control plane at skelcrew.dev is planned.
+- Runs in the terminal on a laptop or an always-on machine. Uses git worktrees and tmux; GitHub delivery is next.
+- Bring your own AI subscription. The core will be free and open source from the first release. A hosted control plane at skelcrew.dev is planned.
 
 ## Configuration example (skelcrew.yaml)
 
@@ -33,7 +33,7 @@ Status: in active development. The rebuild started on 8 October 2026 and has not
 roles:
   planner: { harness: claude }
   builder: { harness: claude }
-  tester:  { harness: codex }
+  tester:  { harness: claude }
 repo:
   test: [bun run check]
   critical: [src/core/**]

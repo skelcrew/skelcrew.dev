@@ -1,7 +1,8 @@
 # skelcrew.dev
 
 The marketing site for Skelcrew. Next.js (App Router) with static export, Tailwind CSS v4,
-TypeScript, Bun. The build is plain HTML in `out/`, deployed to GitHub Pages.
+TypeScript, Bun. The build is plain HTML in `out/`, hosted on Vercel. Every pull request gets
+a Vercel preview link; check your change there too.
 
 ## Commands
 

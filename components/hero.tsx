@@ -14,7 +14,7 @@ export function Hero() {
       </p>
       <SignupForm id="email-top" />
       <Label className="mt-6 leading-relaxed">
-        Open source · bring your own agents · one or two emails a year
+        Open source at first release · bring your own agents · one or two emails a year
       </Label>
     </Container>
   );

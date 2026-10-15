@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Skelcrew",
-    description: "A small crew of coding agents, with you as the team lead. Open source.",
+    description:
+      "A small crew of coding agents, with you as the team lead. Open source at first release.",
     url: "https://skelcrew.dev",
   },
 };

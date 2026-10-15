@@ -9,5 +9,6 @@ bun run check        # lint, typecheck, build to out/
 bun run screenshot   # desktop and mobile screenshots of the build
 ```
 
-Pushes to `main` deploy to GitHub Pages through `.github/workflows/deploy.yml`.
+Hosted on Vercel: pushes to `main` go live on skelcrew.dev, and every pull request gets a
+preview link. GitHub Actions runs `bun run check` on each push and pull request.
 Working on the site with an agent? See [AGENTS.md](AGENTS.md).

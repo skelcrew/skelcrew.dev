@@ -70,7 +70,7 @@ export function Wordmark({
         d={strokes}
         className={shadowClassName}
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="2"
         fill="none"
       />
     </svg>

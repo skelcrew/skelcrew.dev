@@ -11,7 +11,7 @@ export function Footer() {
   return (
     <footer className="border-t border-line">
       <Container className="py-14">
-        <Wordmark className="mb-12 overflow-hidden text-[clamp(5px,1.25vw,15px)] text-fg-2" />
+        <Wordmark className="mb-12 text-line-2" shadowClassName="text-line" />
         <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-muted">
           <p>
             Built in public by{" "}

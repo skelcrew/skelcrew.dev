@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens, used as Tailwind classes: bg-bg, bg-panel, text-fg, text-muted,
+ * border-line, text-accent, text-ok, font-mono, and so on. The site is dark only.
+ */
+@theme {
+  --color-bg: #0e0e0d;
+  --color-panel: #151514;
+  --color-panel-2: #1b1b19;
+  --color-line: #262624;
+  --color-line-2: #34342f;
+  --color-fg: #ecebe6;
+  --color-fg-2: #b9b8b0;
+  --color-muted: #7d7c75;
+  --color-faint: #55544f;
+  --color-accent: #f0a63a;
+
+  --color-ok: #7bc77e;
+  --color-run: #6cb6ff;
+  --color-wait: #f0b54a;
+  --color-bad: #ef7a6c;
+  --color-str: #d7c58a;
+
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+  }
+  ::selection {
+    @apply bg-accent text-bg;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes pulse-dot {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes flow {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(300%);
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.25s ease;
+}
+@utility animate-pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+@utility animate-flow {
+  animation: flow 2.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-pulse-dot,
+  .animate-flow {
+    animation: none;
+  }
+}

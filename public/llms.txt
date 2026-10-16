@@ -1,0 +1,46 @@
+# Skelcrew
+
+> Skelcrew is software that runs a small crew of coding agents on tasks, in parallel and unattended, with a human as the team lead. Tasks go in; branches, pull requests or reports come out.
+
+Status: in active development. The rebuild started on 8 October 2026 and has not had a public release yet. Updates: https://skelcrew.dev/#updates
+
+## How it works
+
+- A task is the unit of work, not a chat. Add one with `skel add "<description>"` (GitHub issues and trackers are planned).
+- A planner agent triages it: intent (quick fix, bug, investigation, feature, exploration, prototype) and how much care it needs.
+- A builder agent does the work in its own git worktree.
+- A separate tester agent reviews it adversarially and collects evidence, for up to three rounds.
+- Changes to paths marked critical wait for the human's sign-off. The result is a branch, a pull request or a report.
+- When an agent needs the human, it asks a short question with options instead of chatting.
+
+## Guarantees
+
+- A small deterministic core enforces the rules; agents only propose.
+- No agent can approve its own work, ship without review, or start more agents than allowed.
+- The commit that passed review is exactly the commit that is delivered.
+- Every step is an event in an append-only log that can be replayed.
+- Work is saved before an agent stops, and a crash or restart resumes where it left off.
+
+## Compatibility
+
+- Harnesses: Claude Code today; Codex next. Others through plugins.
+- Runs in the terminal on a laptop or an always-on machine. Uses git worktrees and tmux; GitHub delivery is next.
+- Bring your own AI subscription. The core will be free and open source from the first release. A hosted control plane at skelcrew.dev is planned.
+
+## Configuration example (skelcrew.yaml)
+
+```yaml
+roles:
+  planner: { harness: claude }
+  builder: { harness: claude }
+  tester:  { harness: claude }
+repo:
+  test: [bun run check]
+  critical: [src/core/**]
+limits:
+  max_running: 2
+```
+
+## Contact
+
+Built by Simon Carstensen in Denmark. hello@skelcrew.dev

@@ -7,7 +7,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 const description =
-  "Skelcrew runs coding agents through phased tasks with review gates. You make the calls that matter. The agents do the rest, and everything they decide is kept on record.";
+  "Skelcrew runs coding agents through phased tasks with review gates. You make the calls that matter, and every decision the agents make is kept on record.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://skelcrew.dev"),
@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     apple: "/skelcrew-icon.png",
   },
   openGraph: {
+    siteName: "Skelcrew",
     title: "Skelcrew",
     description:
       "A small crew of coding agents, with you as the team lead. Open source at first release.",

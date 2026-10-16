@@ -45,6 +45,15 @@ rows.forEach((row, r) => {
   }
 });
 
+/** The raw drawing, for places that can't use the component (the share image). */
+export const wordmark = {
+  width: cols * CELL_W,
+  height: rows.length * CELL_H,
+  cellHeight: CELL_H,
+  blocks,
+  strokes,
+};
+
 /** Blocks take the text colour; `shadowClassName` sets the colour of the outline strokes. */
 export function Wordmark({
   className = "",

@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -21,7 +22,16 @@ export const metadata: Metadata = {
     description:
       "A small crew of coding agents, with you as the team lead. Open source at first release.",
     url: "https://skelcrew.dev",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Skelcrew: give your agents tasks, not chats.",
+      },
+    ],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = { themeColor: "#0e0e0d" };
@@ -29,7 +39,10 @@ export const viewport: Viewport = { themeColor: "#0e0e0d" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

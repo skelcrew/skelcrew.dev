@@ -26,7 +26,12 @@ if (!existsSync("out/index.html")) {
 const server = Bun.serve({
   port: 0,
   async fetch(req) {
-    let path = join("out", decodeURIComponent(new URL(req.url).pathname));
+    const { pathname } = new URL(req.url);
+    // Vercel serves the analytics script itself; it isn't in out/.
+    if (pathname.startsWith("/_vercel/")) {
+      return new Response("", { headers: { "content-type": "text/javascript" } });
+    }
+    let path = join("out", decodeURIComponent(pathname));
     if (path.endsWith("/")) path += "index.html";
     const file = Bun.file(path);
     return (await file.exists()) ? new Response(file) : new Response("Not found", { status: 404 });

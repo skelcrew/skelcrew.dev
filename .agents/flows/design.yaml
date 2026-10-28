@@ -1,0 +1,9 @@
+# Triage hands a task to a flow by its file name, and shows the planner this
+# description.
+description: Mockups and options to discuss, not code to merge.
+# Phases run in the order written. Each names the role that works on it, and
+# the outcomes it may report. Any phase may also report needs-you or give-up.
+phases:
+  design:
+    role: designer
+    outcomes: [done]

@@ -1,0 +1,29 @@
+intake:
+  harness: claude
+  model: haiku
+
+defaults:
+  harness: claude
+  model: sonnet
+
+# The flow every task starts with.
+start: triage
+
+repo:
+  main: main
+  # Commands run once in each new worktree, such as installing dependencies.
+  setup: []
+  # Commands that must pass before a phase with check: true accepts its report.
+  # Empty means no checks, for a project that has no tests yet.
+  test: []
+
+# skel serve runs these plugins, and answers their messages with this role.
+server:
+  role: lead
+  # skel plugin install adds each one. skel serve needs at least one.
+  plugins:
+    - from: git@github.com:skelcrew/skel-github.git
+    - from: git@github.com:skelcrew/skel-slack.git
+  # Run before each turn in the turns' own clone, so turns read current code.
+  fetch:
+    - git fetch origin

@@ -1,0 +1,14 @@
+# skel.yaml starts every task with this flow. Its one phase reads the task and
+# picks the flow that fits.
+description: Reads the task and picks the flow that fits.
+phases:
+  plan:
+    role: planner
+    outcomes: [feature, fix, explore, design]
+    # then hands the task to another flow, which starts at its first phase.
+    # This flow ends there, and the task is done when the last flow ends.
+    then:
+      feature: feature
+      fix: fix
+      explore: explore
+      design: design

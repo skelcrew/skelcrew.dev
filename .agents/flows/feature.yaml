@@ -1,0 +1,21 @@
+# Triage hands a task to a flow by its file name, and shows the planner this
+# description.
+description: New behaviour that needs a review before it ships.
+# Phases run in the order written. Each names the role that works on it, and
+# the outcomes it may report. Any phase may also report needs-you or give-up.
+# skel pushes the task's branch after each phase that adds commits.
+phases:
+  build:
+    role: builder
+    outcomes: [done]
+    # Accept done only once the commands in repo.test in skel.yaml pass.
+    check: true
+  review:
+    role: tester
+    outcomes: [passed, changes]
+    # on sends an outcome to another phase of this flow, so the flow can loop:
+    # changes sends the work back to build, and then review runs again.
+    on:
+      changes: build
+    # After 3 rounds, skel inbox asks you before each further one.
+    max_rounds: 3

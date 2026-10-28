@@ -1,0 +1,12 @@
+# Written by skel plugin install and update. Commit it; don't edit it.
+plugins:
+  github:
+    from: git@github.com:skelcrew/skel-github.git
+    version: 0.2.0
+    commit: 7190c068c174c591367a139155ce06e9bb787dba
+    manifest: sha256:e9d3d1a127b850887ee5cdba97535b6f9179c58f0aa92565be54dff374c73212
+  slack:
+    from: git@github.com:skelcrew/skel-slack.git
+    version: 0.1.1
+    commit: 0b2211a6327dbf6984835226836ebb97ce5fd3f6
+    manifest: sha256:42a6f39215d24745e6e4088b37f73510fd3787cc136ee2ceb312dbbd730cf26e

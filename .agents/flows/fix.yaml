@@ -1,0 +1,12 @@
+# Triage hands a task to a flow by its file name, and shows the planner this
+# description.
+description: A small, clear change, such as a bug with a known cause.
+# Phases run in the order written. Each names the role that works on it, and
+# the outcomes it may report. Any phase may also report needs-you or give-up.
+# skel pushes the task's branch after each phase that adds commits.
+phases:
+  build:
+    role: builder
+    outcomes: [done]
+    # Accept done only once the commands in repo.test in skel.yaml pass.
+    check: true

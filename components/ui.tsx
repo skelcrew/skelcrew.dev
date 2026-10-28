@@ -6,6 +6,7 @@ const buttonBase =
 export const buttonStyles = {
   solid: `${buttonBase} bg-fg text-bg hover:bg-white`,
   ghost: `${buttonBase} border border-line-2 text-fg hover:bg-panel-2`,
+  accent: `${buttonBase} bg-accent text-bg hover:brightness-110`,
 };
 
 /** Page-width container. */

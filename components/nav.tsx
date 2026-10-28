@@ -46,7 +46,7 @@ export function Nav() {
                 <span className="hidden sm:inline">GitHub</span>
               </a>
             )}
-            <a href="/#updates" className={`${buttonStyles.accent} h-10 rounded-lg px-4 text-sm`}>
+            <a href="/#updates" className={`${buttonStyles.solid} h-10 rounded-lg px-4 text-sm`}>
               Get updates
             </a>
           </div>

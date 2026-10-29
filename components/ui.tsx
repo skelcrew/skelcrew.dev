@@ -5,6 +5,7 @@ const buttonBase =
 
 export const buttonStyles = {
   solid: `${buttonBase} bg-fg text-bg hover:bg-white`,
+  green: `${buttonBase} bg-ok text-bg hover:bg-ok/85`,
   ghost: `${buttonBase} border border-line-2 text-fg hover:bg-panel-2`,
 };
 
